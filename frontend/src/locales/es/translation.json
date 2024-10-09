@@ -1,0 +1,11 @@
+{
+  "order": "Order",
+  "items": "Items",
+  "title": "Title",
+  "price": "Price",
+  "quantity": "Quantity",
+  "total": "Total",
+  "billTotal": "Bill Total",
+  "closeOrders": "Close Orders",
+  "noItems": "No items in the bill."
+}

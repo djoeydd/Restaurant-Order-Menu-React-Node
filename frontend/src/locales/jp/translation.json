@@ -1,0 +1,11 @@
+{
+  "order": "Orden",
+  "items": "Artículos",
+  "title": "Título",
+  "price": "Precio",
+  "quantity": "Cantidad",
+  "total": "Total",
+  "billTotal": "Total de la factura",
+  "closeOrders": "Cerrar pedidos",
+  "noItems": "No hay artículos en la factura."
+}
