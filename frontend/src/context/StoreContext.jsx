@@ -1,11 +1,25 @@
 import { createContext, useState, useEffect } from "react";
-import { food_list } from "../assets/assets";
+import axios from "axios";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const [billItems, setBillItems] = useState([]); // Add state for bill total
+  const [billItems, setBillItems] = useState([]); // Initialize as an array
+  const [food_list, setFoodList] = useState([]);
+
+  useEffect(() => {
+    const fetchFoodList = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/menuitems");
+        setFoodList(response.data);
+      } catch (error) {
+        console.error("Error fetching food list:", error);
+      }
+    };
+
+    fetchFoodList();
+  }, []);
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -23,7 +37,7 @@ const StoreContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        let itemInfo = food_list.find((product) => product._id === item);
+        let itemInfo = food_list.find((product) => product.productId === item);
         totalAmount += itemInfo.price * cartItems[item];
       }
     }
@@ -34,7 +48,7 @@ const StoreContextProvider = (props) => {
     const itemsToAdd = [];
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        let itemInfo = food_list.find((product) => product._id === item);
+        let itemInfo = food_list.find((product) => product.productId === item);
         itemsToAdd.push({
           ...itemInfo,
           quantity: cartItems[item],
@@ -45,8 +59,17 @@ const StoreContextProvider = (props) => {
     setBillItems((prevBillItems) => [...prevBillItems, ...itemsToAdd]);
   };
 
-  const getTotalBillItems = () => {
-    return billItems;
+  const getTotalBillItems = async (tableNumber) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/orders/?tableNumber=${tableNumber}&open=true`
+      );
+      const orders = response.data;
+      return orders.length;
+    } catch (error) {
+      console.error("Error fetching bill items:", error);
+      return 0;
+    }
   };
 
   const clearCart = () => {
@@ -63,6 +86,7 @@ const StoreContextProvider = (props) => {
     clearCart,
     addItemToBill,
     getTotalBillItems,
+    setBillItems,
     billItems,
   };
 

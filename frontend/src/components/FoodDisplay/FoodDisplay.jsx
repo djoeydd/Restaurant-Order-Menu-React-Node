@@ -1,25 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FoodDisplay.css";
-import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
+import axios from "axios";
 
 const FoodDisplay = ({ category }) => {
-  const { food_list } = React.useContext(StoreContext);
+  const [foodList, setFoodList] = useState([]);
+
+  useEffect(() => {
+    const fetchFoodItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/menuItems");
+        setFoodList(response.data);
+      } catch (error) {
+        console.error("Error fetching food items:", error);
+      }
+    };
+
+    fetchFoodItems();
+  }, []);
 
   return (
     <div className="food-display" id="food-display">
       <h2>{category}</h2>
       <div className="food-display-list">
-        {food_list.map((item, index) => {
+        {foodList.map((item, index) => {
           if (category === "All" || item.category === category) {
             return (
               <FoodItem
                 key={index}
-                id={item._id}
+                id={item.productId}
                 name={item.name}
                 description={item.description}
                 price={item.price}
-                image={item.image}
+                image={`src/assets/${item.image}`}
               />
             );
           }

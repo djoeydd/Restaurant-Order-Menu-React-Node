@@ -17,7 +17,7 @@
   max-height: 162px;
 }
 .food-item-info {
-  padding: 20px;
+  padding: 5px 20px;
 }
 .food-item-name-rating {
   display: flex;
@@ -36,7 +36,8 @@
 .food-item-desc {
   color: #676767;
   font-size: 12px;
-  max-height: 36px;
+
+  max-height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

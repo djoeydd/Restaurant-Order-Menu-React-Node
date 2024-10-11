@@ -33,32 +33,29 @@ const Cart = () => {
       // Prepare the order data
       const orderData = {
         items: food_list
-          .filter((item) => cartItems[item._id] > 0)
+          .filter((item) => cartItems[item.productId] > 0)
           .map((item) => ({
             itemName: item.name,
             price: item.price,
-            quantity: cartItems[item._id],
+            quantity: cartItems[item.productId],
           })),
         tableNumber: 5, // Example table number, you can replace it with actual data
       };
 
-      try {
-        // Make a POST request to the backend API
-        const response = await axios.post(
-          "http://localhost:3000/api/orders",
-          orderData
-        );
-        console.log("Order created successfully:", response.data);
+      // Make a POST request to the backend API
+      const response = await axios.post(
+        "http://localhost:3000/api/orders",
+        orderData
+      );
+      console.log("Order created successfully:", response.data);
 
-        // Clear the cart and navigate to the main page
-        addItemToBill();
-        clearCart();
-        navigate("/");
-      } catch (error) {
-        console.error("Error creating order:", error);
-      } finally {
-        setIsLoading(false);
-      }
+      // Clear the cart and navigate to the main page
+      setIsLoading(true); // Set loading state to true
+      setTimeout(() => {
+        clearCart(); // Clear the cart items
+        navigate("/"); // Navigate to the main page
+        setIsLoading(false); // Set loading state to false
+      }, 2000);
     }
   };
 
@@ -76,16 +73,19 @@ const Cart = () => {
 
         <hr />
         {food_list.map((item, index) => {
-          if (cartItems[item._id] > 0) {
+          if (cartItems[item.productId] > 0) {
             return (
-              <div key={item._id}>
+              <div key={item.productId}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={item.image} alt="" />
+                  <img src={`src/assets/${item.image}`} alt="" />
                   <p>{item.name}</p>
                   <p>¥{item.price}</p>
-                  <p className="quantity">{cartItems[item._id]}</p>
-                  <p>¥{item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeFromCart(item._id)} className="cross">
+                  <p className="quantity">{cartItems[item.productId]}</p>
+                  <p>¥{item.price * cartItems[item.productId]}</p>
+                  <p
+                    onClick={() => removeFromCart(item.productId)}
+                    className="cross"
+                  >
                     x
                   </p>
                 </div>

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "./Bill.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 
 const Bill = () => {
   const tableNumber = 5; // Assuming tableNumber is stored in context
-  const [billItems, setBillItems] = useState([]);
+  const { billItems, setBillItems } = useContext(StoreContext);
 
   useEffect(() => {
     const fetchBillItems = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/orders?tableNumber=${tableNumber}`
+          `http://localhost:3000/api/orders/?tableNumber=${tableNumber}&open=true`
         );
         setBillItems(response.data);
       } catch (error) {
@@ -20,7 +20,7 @@ const Bill = () => {
     };
 
     fetchBillItems();
-  }, [tableNumber]);
+  }, [tableNumber, setBillItems]);
 
   const closeOrders = async () => {
     try {
@@ -51,7 +51,7 @@ const Bill = () => {
         ) : (
           billItems.map((order) =>
             order.items.map((item, index) => (
-              <div key={`${order._id}-${index}`}>
+              <div key={`${order.productId}-${index}`}>
                 <div className="bill-items-title bill-items-item">
                   <img src={item.image} alt="" />
                   <p>{item.itemName}</p>
@@ -84,7 +84,7 @@ const Bill = () => {
               )}
             </p>
           </div>
-          <button onClick={closeOrders}>Close Orders</button>
+          <button onClick={closeOrders}>Request Bill</button>
         </div>
         <div className="tbd"></div>
         <div className="tbd"></div>
