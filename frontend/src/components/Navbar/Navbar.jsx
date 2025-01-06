@@ -6,18 +6,19 @@ import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("home");
-  const { getTotalCartAmount, getTotalBillItems } = useContext(StoreContext);
+  const { getTotalCartAmount, getTotalBillItems, tableNumber } =
+    useContext(StoreContext);
   const [totalBillItems, setTotalBillItems] = useState(0);
 
   useEffect(() => {
     const fetchTotalBillItems = async () => {
-      const total = await getTotalBillItems(5); // Assuming tableNumber is 5
+      const total = await getTotalBillItems(tableNumber); // Assuming tableNumber is 5
       setTotalBillItems(total);
     };
 
     fetchTotalBillItems();
-  }, [getTotalBillItems]);
-
+  }, [getTotalBillItems, tableNumber]);
+  console.log(totalBillItems);
   return (
     <div className="navbar">
       <Link to="/">

@@ -16,7 +16,6 @@
 }
 .navbar-right {
   display: flex;
-  align-items: center;
   gap: 40px;
 }
 .navbar button {
@@ -99,6 +98,6 @@
     display: none;
   }
   .navbar-right {
-    gap: 10px;
+    gap: 30px;
   }
 }

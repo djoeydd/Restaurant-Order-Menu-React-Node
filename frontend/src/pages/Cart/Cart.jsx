@@ -12,6 +12,8 @@ const Cart = () => {
     getTotalCartAmount,
     clearCart,
     addItemToBill,
+    tableNumber,
+    getTotalBillItems,
   } = React.useContext(StoreContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,23 +41,40 @@ const Cart = () => {
             price: item.price,
             quantity: cartItems[item.productId],
           })),
-        tableNumber: 5, // Example table number, you can replace it with actual data
+        tableNumber: tableNumber,
       };
 
-      // Make a POST request to the backend API
-      const response = await axios.post(
-        "http://localhost:3000/api/orders",
-        orderData
-      );
-      console.log("Order created successfully:", response.data);
+      try {
+        const totalBillItems = await getTotalBillItems(tableNumber);
 
-      // Clear the cart and navigate to the main page
-      setIsLoading(true); // Set loading state to true
-      setTimeout(() => {
-        clearCart(); // Clear the cart items
-        navigate("/"); // Navigate to the main page
-        setIsLoading(false); // Set loading state to false
-      }, 2000);
+        let response;
+        if (totalBillItems === 0) {
+          // Make a POST request to create a new order
+          response = await axios.post(
+            "http://localhost:3000/api/orders",
+            orderData
+          );
+        } else {
+          // Make a PATCH request to add items to the existing order
+          response = await axios.patch(
+            `http://localhost:3000/api/orders/add/${tableNumber}`,
+            { items: orderData.items }
+          );
+        }
+
+        console.log("Order created successfully:", response.data);
+
+        // Clear the cart and navigate to the main page
+        setIsLoading(true); // Set loading state to true
+        setTimeout(() => {
+          clearCart(); // Clear the cart items
+          navigate("/"); // Navigate to the main page
+          setIsLoading(false); // Set loading state to false
+        }, 2000);
+      } catch (error) {
+        console.error("Error processing order:", error);
+        setIsLoading(false);
+      }
     }
   };
 

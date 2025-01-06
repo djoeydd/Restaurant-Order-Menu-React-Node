@@ -1,0 +1,22 @@
+.admin-bill {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1.8fr 0.2fr;
+  align-items: center;
+  margin-top: 0;
+}
+
+.admin-order {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.admin-remove-bill {
+  cursor: pointer;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}

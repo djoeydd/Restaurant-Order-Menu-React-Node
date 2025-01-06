@@ -1,0 +1,53 @@
+.admin-dashboard-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  margin-top: 1rem;
+  min-height: 200px;
+  gap: 2rem;
+}
+.admin-dashboard-menu button {
+  background: transparent;
+  font-size: 16px;
+  color: #49557e;
+  border-radius: 5px;
+  border: 1px solid tomato;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.admin-dashboard-menu button:hover {
+  background: tomato;
+  color: white;
+}
+
+.admin-dashboard-title {
+  margin-top: 1rem;
+  font-size: max(1.5vw, 26px);
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.admin-dashboard-title h1 {
+  font-size: max(1.5vw, 26px);
+  font-weight: 200;
+}
+.admin-dashboard hr {
+  margin: 10px 0p;
+  height: 2px;
+  background-color: #e2e2e2;
+  border: none;
+}
+
+@media (max-width: 400px) {
+  .admin-dashboard-menu {
+    grid-template-columns: 1fr;
+  }
+  .admin-dashboard-menu button {
+    font-size: 14px;
+  }
+  .admin-dashboard-title h1 {
+    font-size: 20px;
+  }
+}

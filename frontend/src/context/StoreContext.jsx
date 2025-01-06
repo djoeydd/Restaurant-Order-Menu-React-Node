@@ -5,8 +5,9 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const [billItems, setBillItems] = useState([]); // Initialize as an array
+  const [billItems, setBillItems] = useState([]);
   const [food_list, setFoodList] = useState([]);
+  const [tableNumber, setTableNumber] = useState(0);
 
   useEffect(() => {
     const fetchFoodList = async () => {
@@ -76,6 +77,10 @@ const StoreContextProvider = (props) => {
     setCartItems({});
   };
 
+  const assignTableNumber = () => {
+    tableNumber = 5;
+  };
+
   const contextValue = {
     food_list,
     cartItems,
@@ -88,6 +93,8 @@ const StoreContextProvider = (props) => {
     getTotalBillItems,
     setBillItems,
     billItems,
+    tableNumber,
+    assignTableNumber,
   };
 
   return (

@@ -1,0 +1,6 @@
+.manage-orders-title h1 {
+  padding-top: 50px;
+  font-size: max(1.5vw, 26px);
+  font-weight: 200;
+  text-align: center;
+}

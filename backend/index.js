@@ -7,19 +7,18 @@ app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("mongodb://localhost:27017/food-order", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect("mongodb://localhost:27017/food-order", {})
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 
 // Import and use route files
 const ordersRoute = require("./routes/orders");
 const menuItemsRoute = require("./routes/menuItems");
+const adminRoute = require("./routes/admin");
 
 app.use("/api/orders", ordersRoute);
 app.use("/api/menuItems", menuItemsRoute);
+app.use("/api/admin", adminRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

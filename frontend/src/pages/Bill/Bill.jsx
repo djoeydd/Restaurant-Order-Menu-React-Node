@@ -4,7 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 
 const Bill = () => {
-  const tableNumber = 5; // Assuming tableNumber is stored in context
+  const { tableNumber } = useContext(StoreContext);
   const { billItems, setBillItems } = useContext(StoreContext);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Bill = () => {
       console.error("Error closing orders:", error);
     }
   };
-
+  console.log(billItems.length);
   return (
     <div className="bill">
       <h2>Order</h2>

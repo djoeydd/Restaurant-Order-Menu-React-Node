@@ -1,0 +1,50 @@
+.admin-navbar {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-navbar .logo {
+  width: 250px;
+}
+
+.admin-navbar h1 {
+  font-size: max(1.5vw, 26px);
+  font-weight: 200;
+}
+
+.admin-navbar button {
+  background: transparent;
+  font-size: 16px;
+  color: #49557e;
+  border: 1px solid tomato;
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.admin-navbar button:hover {
+  background: tomato;
+  color: white;
+}
+
+@media (max-width: 900px) {
+  .admin-navbar {
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .admin-navbar .logo {
+    display: none;
+  }
+  .admin-navbar h1 {
+    font-size: max(1vw, 20px);
+    font-weight: 200;
+  }
+  .admin-navbar button {
+    font-size: 12px;
+    width: 120px;
+  }
+}

@@ -1,0 +1,25 @@
+.home-container {
+  background-color: white;
+  padding: 0 20px;
+}
+.home-container h1 {
+  color: #262626;
+  font-weight: 500;
+}
+.explore-menu-text {
+  max-width: 60%;
+  columns: #808080;
+}
+.explore-container {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure it stays above other content */
+  background-color: white;
+}
+hr {
+  margin: 10px 0p;
+  height: 2px;
+  background-color: #e2e2e2;
+  border: none;
+}
