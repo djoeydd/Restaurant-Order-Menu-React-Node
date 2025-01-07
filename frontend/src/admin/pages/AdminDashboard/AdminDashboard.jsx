@@ -20,7 +20,7 @@ const AdminDashboard = () => {
           All Orders
         </button>
         <button onClick={() => navigate("/admin/menu")}>Manage Menu</button>
-        <button>Clock In</button>
+        <button>Clock In/Out</button>
       </div>
     </div>
   );

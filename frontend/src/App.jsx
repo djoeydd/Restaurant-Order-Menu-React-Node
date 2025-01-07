@@ -17,21 +17,20 @@ const App = () => {
   const isAdminPath = location.pathname.startsWith("/admin");
 
   return (
-    <StoreContextProvider>
-      <div className="app">
-        {isAdminPath ? <AdminNavbar /> : <Navbar />}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/bill" element={<Bill />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/orders" element={<ManageOrders />} />
-          <Route path="/admin/orders/all" element={<AllOrders />} />
-          <Route path="/admin/menu" element={<ManageMenu />} />
-        </Routes>
-      </div>
+    <div className="app">
+      {isAdminPath ? <AdminNavbar /> : <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/bill" element={<Bill />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/orders" element={<ManageOrders />} />
+        <Route path="/admin/orders/all" element={<AllOrders />} />
+        <Route path="/admin/menu" element={<ManageMenu />} />
+      </Routes>
+
       {!isAdminPath && <Footer />}
-    </StoreContextProvider>
+    </div>
   );
 };
 

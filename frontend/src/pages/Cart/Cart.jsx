@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios
+import axios from "axios";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Cart = () => {
   const {
@@ -18,7 +19,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Define the isCartEmpty variable
   const isCartEmpty = Array.isArray(cartItems)
     ? cartItems.length === 0
     : Object.keys(cartItems).length === 0;
@@ -65,11 +65,11 @@ const Cart = () => {
         console.log("Order created successfully:", response.data);
 
         // Clear the cart and navigate to the main page
-        setIsLoading(true); // Set loading state to true
+        setIsLoading(true);
         setTimeout(() => {
-          clearCart(); // Clear the cart items
+          clearCart();
           navigate("/"); // Navigate to the main page
-          setIsLoading(false); // Set loading state to false
+          setIsLoading(false);
         }, 2000);
       } catch (error) {
         console.error("Error processing order:", error);
@@ -123,19 +123,23 @@ const Cart = () => {
             <p>¥{getTotalCartAmount()}</p>
           </div>
           <button onClick={handlePlaceOrder} disabled={isLoading}>
-            {isLoading ? "Placing Order..." : "Place Order"}
+            {isLoading ? (
+              <LoadingSpinner text={"Placing Order"} />
+            ) : (
+              "Place Order"
+            )}
           </button>
         </div>
-        <div className="tbd"></div>
-        <div className="tbd"></div>
-      </div>
-      {isLoading && (
-        <div className="spinner-overlay">
-          <div className="spinner">
-            {isCartEmpty ? "Cart is empty" : "Loading..."}
+        {isLoading && (
+          <div>
+            {isCartEmpty ? (
+              "Cart is empty"
+            ) : (
+              <LoadingSpinner text={"Placing Order"} />
+            )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

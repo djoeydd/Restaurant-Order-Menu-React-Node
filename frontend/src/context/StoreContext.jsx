@@ -1,13 +1,25 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import TableNumberModal from "../components/TableNumberModal/TableNumberModal";
+import { useLocation } from "react-router-dom";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    return savedCartItems ? JSON.parse(savedCartItems) : {};
+  });
   const [billItems, setBillItems] = useState([]);
   const [food_list, setFoodList] = useState([]);
-  const [tableNumber, setTableNumber] = useState(0);
+  const [tableNumber, setTableNumber] = useState(() => {
+    const savedTableNumber = localStorage.getItem("tableNumber");
+    return savedTableNumber ? parseInt(savedTableNumber, 10) : 0;
+  });
+  const [showModal, setShowModal] = useState(true); // State to manage modal visibility
+
+  const location = useLocation();
+  const isAdminPath = location.pathname.startsWith("/admin");
 
   useEffect(() => {
     const fetchFoodList = async () => {
@@ -21,6 +33,19 @@ const StoreContextProvider = (props) => {
 
     fetchFoodList();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    if (tableNumber > 0) {
+      localStorage.setItem("tableNumber", tableNumber);
+      setShowModal(false);
+    } else {
+      localStorage.removeItem("tableNumber");
+    }
+  }, [tableNumber]);
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -77,8 +102,16 @@ const StoreContextProvider = (props) => {
     setCartItems({});
   };
 
-  const assignTableNumber = () => {
-    tableNumber = 5;
+  const handleSetTableNumber = (number) => {
+    if (number > 0) {
+      setTableNumber(number);
+      setShowModal(false);
+    }
+  };
+
+  const resetTableNumber = () => {
+    setTableNumber(0);
+    setShowModal(true);
   };
 
   const contextValue = {
@@ -94,12 +127,16 @@ const StoreContextProvider = (props) => {
     setBillItems,
     billItems,
     tableNumber,
-    assignTableNumber,
+    setTableNumber: handleSetTableNumber,
+    resetTableNumber,
   };
 
   return (
     <StoreContext.Provider value={contextValue}>
       {props.children}
+      {!isAdminPath && showModal && (
+        <TableNumberModal setTableNumber={handleSetTableNumber} />
+      )}
     </StoreContext.Provider>
   );
 };

@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("mongodb://localhost:27017/food-order", {})
+  .connect("mongodb+srv://mike:No@cluster0.vc3ql.mongodb.net/menu-order", {})
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 

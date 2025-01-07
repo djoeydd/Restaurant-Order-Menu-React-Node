@@ -1,11 +1,18 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import "./Bill.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 const Bill = () => {
-  const { tableNumber } = useContext(StoreContext);
+  const { tableNumber, resetTableNumber } = useContext(StoreContext);
   const { billItems, setBillItems } = useContext(StoreContext);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isOrderEmpty = Array.isArray(billItems)
+    ? billItems.length === 0
+    : Object.keys(billItems).length === 0;
 
   useEffect(() => {
     const fetchBillItems = async () => {
@@ -23,16 +30,30 @@ const Bill = () => {
   }, [tableNumber, setBillItems]);
 
   const closeOrders = async () => {
-    try {
-      await axios.patch(
-        `http://localhost:3000/api/orders/close/${tableNumber}`
-      );
-      setBillItems([]); // Clear the bill items after closing orders
-    } catch (error) {
-      console.error("Error closing orders:", error);
+    if (isOrderEmpty) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    } else {
+      setIsLoading(true);
+      try {
+        await axios.patch(
+          `http://localhost:3000/api/orders/close/${tableNumber}`
+        );
+        setTimeout(() => {
+          setBillItems([]); // Clear the bill items after closing orders
+          navigate("/"); // Navigate to the main page
+          resetTableNumber(); // Reset the table number and show the modal
+          setIsLoading(false);
+        }, 2000);
+      } catch (error) {
+        console.error("Error processing order:", error);
+        setIsLoading(false);
+      }
     }
   };
-  console.log(billItems.length);
+
   return (
     <div className="bill">
       <h2>Order</h2>
@@ -84,10 +105,23 @@ const Bill = () => {
               )}
             </p>
           </div>
-          <button onClick={closeOrders}>Request Bill</button>
+          <button onClick={closeOrders} disabled={isLoading}>
+            {isLoading ? (
+              <LoadingSpinner text={"Requesting Bill"} />
+            ) : (
+              "Request Bill"
+            )}
+          </button>
         </div>
-        <div className="tbd"></div>
-        <div className="tbd"></div>
+        {isLoading && (
+          <div>
+            {isOrderEmpty ? (
+              "No items in bill"
+            ) : (
+              <LoadingSpinner text={"Requesting Bill"} />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
