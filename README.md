@@ -2,13 +2,13 @@
 
 ## Description
 
-A full-stack restaurant order management system using React, Node.js, Express, and MongoDB. The system allows users to browse the menu, place orders, and manage orders through an admin dashboard.
+A full-stack restaurant order management system using React, Node.js, Express, and MongoDB. The system allows users to browse the menu, place orders, manage orders, and update the menu through an admin dashboard.
 
 ## Features
 
 - **Menu Display:** Dynamic menu display with categories.
 - **Order Management:** View cart, place orders, and view bill.
-- **Admin Dashboard:** Manage orders and view order details.
+- **Admin Dashboard:** Manage orders, update menu items, and monitor order status in real-time.
 - **Responsive Design:** Mobile-friendly design.
 
 ## Technologies
@@ -29,7 +29,7 @@ A full-stack restaurant order management system using React, Node.js, Express, a
 1. Open the frontend application in your browser.
 2. Browse the menu and add items to the cart.
 3. Place an order and view the bill.
-4. Admins can log in to the admin dashboard to manage orders.
+4. Admins can log in to the admin dashboard to manage orders and updte the menu.
 
 ## License
 
