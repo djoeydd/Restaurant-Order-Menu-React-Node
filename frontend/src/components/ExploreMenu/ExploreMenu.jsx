@@ -22,7 +22,9 @@ const ExploreMenu = ({ category, setCategory }) => {
                 src={item.menu_image}
                 alt=""
               />
-              <p>{item.menu_name}</p>
+              <p className={category === item.menu_name ? "selected" : ""}>
+                {item.menu_name}
+              </p>
             </div>
           );
         })}

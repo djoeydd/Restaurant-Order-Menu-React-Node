@@ -44,6 +44,11 @@
   padding: 2px;
 }
 
+.explore-menu-list-item .selected {
+  color: tomato;
+  animation: fadeIn 0.3s;
+}
+
 @media (max-width: 1050px) {
   .explore-menu-text {
     max-width: 100%;

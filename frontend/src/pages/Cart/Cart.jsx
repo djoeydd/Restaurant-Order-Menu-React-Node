@@ -123,7 +123,7 @@ const Cart = () => {
             <p>¥{getTotalCartAmount()}</p>
           </div>
           <button onClick={handlePlaceOrder} disabled={isLoading}>
-            {isLoading ? "Placing Order..." : "PLACE ORDER"}
+            {isLoading ? "Placing Order..." : "Place Order"}
           </button>
         </div>
         <div className="tbd"></div>

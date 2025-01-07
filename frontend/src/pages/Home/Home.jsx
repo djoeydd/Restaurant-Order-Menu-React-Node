@@ -16,7 +16,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="main-container">
       <Header />
       <h1 ref={foodDisplayRef}>Explore our menu</h1>
       <p className="explore-menu-text">

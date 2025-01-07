@@ -21,7 +21,7 @@ const FoodDisplay = ({ category }) => {
 
   return (
     <div className="food-display" id="food-display">
-      <h2>{category}</h2>
+      <h2 className="category-text">{category}</h2>
       <div className="food-display-list">
         {foodList.map((item, index) => {
           if (category === "All" || item.category === category) {

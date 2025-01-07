@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const MenuItem = require("../models/MenuItem");
+const adminController = require("../controllers/adminController");
 
 // Get all menu items
 router.get("/", async (req, res) => {
@@ -13,15 +14,12 @@ router.get("/", async (req, res) => {
 });
 
 // Create a new menu item
-router.post("/", async (req, res) => {
-  const { name, description, price, image, category } = req.body;
-  const menuItem = new MenuItem({ name, description, price, image, category });
-  try {
-    const result = await menuItem.save();
-    res.status(201).send(result);
-  } catch (err) {
-    res.status(400).send("Error creating menu item");
-  }
-});
+router.post("/", adminController.createMenuItem);
+
+// Delete a menu item
+router.delete("/:id", adminController.deleteMenuItem);
+
+// Update a menu item
+router.put("/:id", adminController.updateMenuItem);
 
 module.exports = router;

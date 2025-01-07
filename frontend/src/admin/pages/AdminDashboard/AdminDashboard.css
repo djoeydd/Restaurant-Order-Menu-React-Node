@@ -6,6 +6,11 @@
   min-height: 200px;
   gap: 2rem;
 }
+
+.admin-dashboard {
+  margin: 0 auto;
+  width: 90%;
+}
 .admin-dashboard-menu button {
   background: transparent;
   font-size: 16px;

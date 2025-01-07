@@ -10,6 +10,7 @@ import AdminDashboard from "./admin/pages/AdminDashboard/AdminDashboard";
 import ManageOrders from "./admin/pages/ManageOrders/ManageOrders";
 import AdminNavbar from "./admin/components/Navbar/AdminNavbar";
 import AllOrders from "./admin/pages/AllOrders/AllOrders";
+import ManageMenu from "./admin/pages/ManageMenu/ManageMenu";
 
 const App = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/orders" element={<ManageOrders />} />
           <Route path="/admin/orders/all" element={<AllOrders />} />
+          <Route path="/admin/menu" element={<ManageMenu />} />
         </Routes>
       </div>
       {!isAdminPath && <Footer />}

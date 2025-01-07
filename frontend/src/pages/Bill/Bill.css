@@ -1,5 +1,7 @@
 .bill {
   margin-top: 30px;
+  width: 90%;
+  margin: 0 auto;
 }
 .bill h2 {
   font-size: max(3vw, 36px);
@@ -57,6 +59,11 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.bill-total button:hover {
+  background-color: #ff4d4d;
+}
+
 .spinner-overlay {
   position: fixed;
   top: 0;

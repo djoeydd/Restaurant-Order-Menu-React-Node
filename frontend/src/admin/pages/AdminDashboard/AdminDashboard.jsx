@@ -19,7 +19,7 @@ const AdminDashboard = () => {
         <button onClick={() => navigate("/admin/orders/all")}>
           All Orders
         </button>
-        <button>Edit Menu</button>
+        <button onClick={() => navigate("/admin/menu")}>Manage Menu</button>
         <button>Clock In</button>
       </div>
     </div>

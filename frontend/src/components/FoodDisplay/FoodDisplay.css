@@ -6,6 +6,13 @@
   font-weight: 600;
 }
 
+.category-text {
+  font-size: 26px;
+  font-weight: 500;
+  margin-top: 20px;
+  color: tomato;
+}
+
 .food-display-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

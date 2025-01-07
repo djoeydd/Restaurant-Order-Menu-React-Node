@@ -18,7 +18,6 @@ const Navbar = () => {
 
     fetchTotalBillItems();
   }, [getTotalBillItems, tableNumber]);
-  console.log(totalBillItems);
   return (
     <div className="navbar">
       <Link to="/">

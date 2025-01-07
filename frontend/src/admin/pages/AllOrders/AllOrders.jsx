@@ -21,7 +21,7 @@ function AllOrders() {
 
   return (
     <div className="manage-orders-title">
-      <h1>Manage Orders</h1>
+      <h1>All Orders</h1>
       <BillDisplay orders={orders} />
     </div>
   );
