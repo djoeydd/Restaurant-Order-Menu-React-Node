@@ -8,7 +8,7 @@ app.use(express.json());
 // Configure CORS
 const allowedOrigins = [
   "http://localhost:3000", // Your local frontend
-  "*", // Replace with your actual dev tunnel URL
+  "https://gw2kc1w6-5173.asse.devtunnels.ms/", // Replace with your actual dev tunnel URL
 ];
 app.use(
   cors({
