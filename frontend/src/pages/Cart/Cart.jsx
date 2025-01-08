@@ -51,13 +51,15 @@ const Cart = () => {
         if (totalBillItems === 0) {
           // Make a POST request to create a new order
           response = await axios.post(
-            "http://localhost:3000/api/orders",
+            `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/orders`,
             orderData
           );
         } else {
           // Make a PATCH request to add items to the existing order
           response = await axios.patch(
-            `http://localhost:3000/api/orders/add/${tableNumber}`,
+            `${
+              import.meta.env.VITE_REACT_APP_BACKEND_URL
+            }/orders/add/${tableNumber}`,
             { items: orderData.items }
           );
         }

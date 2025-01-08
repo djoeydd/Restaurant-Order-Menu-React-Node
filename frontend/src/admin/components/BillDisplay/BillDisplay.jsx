@@ -31,7 +31,9 @@ const BillDisplay = ({ orders }) => {
       }
 
       try {
-        await axios.delete(`http://localhost:3000/api/orders/${orderId}`);
+        await axios.delete(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/orders/${orderId}`
+        );
         setLocalOrders(localOrders.filter((order) => order._id !== orderId));
         return true; // Return true to indicate successful deletion
       } catch (error) {
@@ -45,7 +47,9 @@ const BillDisplay = ({ orders }) => {
       try {
         // Make API call to delete the item
         await axios.delete(
-          `http://localhost:3000/api/orders/${orderId}/items/${itemId}`
+          `${
+            import.meta.env.VITE_REACT_APP_BACKEND_URL
+          }/api/orders/${orderId}/items/${itemId}`
         );
 
         // Only update state if API call was successful

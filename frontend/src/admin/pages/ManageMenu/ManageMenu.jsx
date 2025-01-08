@@ -18,9 +18,13 @@ const ManageMenu = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    console.log(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuItems`);
+
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/menuItems");
+        const response = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuItems`
+        );
         setMenuItems(response.data);
       } catch (error) {
         console.error("Error fetching menu items:", error);
@@ -52,7 +56,7 @@ const ManageMenu = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/menuItems",
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuItems`,
         newMenuItem
       );
       setMenuItems((prev) => [...prev, response.data]);
@@ -85,7 +89,9 @@ const ManageMenu = () => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/menuItems/${editMenuItem._id}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuItems/${
+          editMenuItem._id
+        }`,
         editMenuItem
       );
       setMenuItems((prev) =>
@@ -113,7 +119,9 @@ const ManageMenu = () => {
 
     try {
       console.log("deleting");
-      await axios.delete(`http://localhost:3000/api/menuItems/${id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuItems/${id}`
+      );
       setMenuItems((prev) => prev.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Error deleting menu item:", error);

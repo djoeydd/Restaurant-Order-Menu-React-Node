@@ -9,7 +9,9 @@ const FoodDisplay = ({ category }) => {
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/menuItems");
+        const response = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuItems`
+        );
         setFoodList(response.data);
       } catch (error) {
         console.error("Error fetching food items:", error);

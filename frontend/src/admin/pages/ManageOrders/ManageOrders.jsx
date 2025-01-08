@@ -10,7 +10,7 @@ const ManageOrders = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/orders/?open=true`
+          `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/orders/?open=true`
         );
         setOrders(response.data);
       } catch (error) {

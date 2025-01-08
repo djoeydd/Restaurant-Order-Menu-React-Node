@@ -4,7 +4,19 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS
+const allowedOrigins = [
+  "http://localhost:3000", // Your local frontend
+  "*", // Replace with your actual dev tunnel URL
+];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
 
 mongoose
   .connect("mongodb+srv://mike:No@cluster0.vc3ql.mongodb.net/menu-order", {})

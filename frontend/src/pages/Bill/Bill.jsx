@@ -18,7 +18,9 @@ const Bill = () => {
     const fetchBillItems = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/orders/?tableNumber=${tableNumber}&open=true`
+          `${
+            import.meta.env.VITE_REACT_APP_BACKEND_URL
+          }/api/orders/?tableNumber=${tableNumber}&open=true`
         );
         setBillItems(response.data);
       } catch (error) {
@@ -39,7 +41,9 @@ const Bill = () => {
       setIsLoading(true);
       try {
         await axios.patch(
-          `http://localhost:3000/api/orders/close/${tableNumber}`
+          `${
+            import.meta.env.VITE_REACT_APP_BACKEND_URL
+          }/api/orders/close/${tableNumber}`
         );
         setTimeout(() => {
           setBillItems([]); // Clear the bill items after closing orders

@@ -24,7 +24,9 @@ const StoreContextProvider = (props) => {
   useEffect(() => {
     const fetchFoodList = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/menuitems");
+        const response = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/menuitems`
+        );
         setFoodList(response.data);
       } catch (error) {
         console.error("Error fetching food list:", error);
@@ -88,7 +90,9 @@ const StoreContextProvider = (props) => {
   const getTotalBillItems = async (tableNumber) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/orders/?tableNumber=${tableNumber}&open=true`
+        `${
+          import.meta.env.VITE_REACT_APP_BACKEND_URL
+        }/api/orders/?tableNumber=${tableNumber}&open=true`
       );
       const orders = response.data;
       return orders.length;
