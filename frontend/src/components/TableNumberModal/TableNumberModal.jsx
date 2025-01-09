@@ -22,6 +22,7 @@ const TableNumberModal = ({ setTableNumber }) => {
             Table Number:
             <input
               type="number"
+              ref={(node) => node && node.focus()}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               required

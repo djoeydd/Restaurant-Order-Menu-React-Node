@@ -4,6 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+
 const Bill = () => {
   const { tableNumber, resetTableNumber } = useContext(StoreContext);
   const { billItems, setBillItems } = useContext(StoreContext);

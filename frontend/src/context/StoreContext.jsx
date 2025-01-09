@@ -10,7 +10,10 @@ const StoreContextProvider = (props) => {
     const savedCartItems = localStorage.getItem("cartItems");
     return savedCartItems ? JSON.parse(savedCartItems) : {};
   });
-  const [billItems, setBillItems] = useState([]);
+  const [billItems, setBillItems] = useState(() => {
+    const savedBillItems = localStorage.getItem("billItems");
+    return savedBillItems ? JSON.parse(savedBillItems) : [];
+  });
   const [food_list, setFoodList] = useState([]);
   const [tableNumber, setTableNumber] = useState(() => {
     const savedTableNumber = localStorage.getItem("tableNumber");
@@ -37,17 +40,31 @@ const StoreContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  useEffect(() => {
     if (tableNumber > 0) {
       localStorage.setItem("tableNumber", tableNumber);
       setShowModal(false);
+      // Load cart items and bill items for the table number
+      const savedCartItems = localStorage.getItem(`cartItems_${tableNumber}`);
+      const savedBillItems = localStorage.getItem(`billItems_${tableNumber}`);
+      setCartItems(savedCartItems ? JSON.parse(savedCartItems) : {});
+      setBillItems(savedBillItems ? JSON.parse(savedBillItems) : []);
     } else {
       localStorage.removeItem("tableNumber");
     }
   }, [tableNumber]);
+
+  useEffect(() => {
+    if (tableNumber > 0) {
+      localStorage.setItem(
+        `cartItems_${tableNumber}`,
+        JSON.stringify(cartItems)
+      );
+      localStorage.setItem(
+        `billItems_${tableNumber}`,
+        JSON.stringify(billItems)
+      );
+    }
+  }, [cartItems, billItems, tableNumber]);
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -58,7 +75,12 @@ const StoreContextProvider = (props) => {
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    if (cartItems[itemId] > 1) {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    } else {
+      const { [itemId]: _, ...rest } = cartItems;
+      setCartItems(rest);
+    }
   };
 
   const getTotalCartAmount = () => {

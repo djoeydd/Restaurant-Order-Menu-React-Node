@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const Cart = () => {
     addItemToBill,
     tableNumber,
     getTotalBillItems,
-  } = React.useContext(StoreContext);
+  } = useContext(StoreContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,7 +59,7 @@ const Cart = () => {
           response = await axios.patch(
             `${
               import.meta.env.VITE_REACT_APP_BACKEND_URL
-            }/orders/add/${tableNumber}`,
+            }/api/orders/add/${tableNumber}`,
             { items: orderData.items }
           );
         }
