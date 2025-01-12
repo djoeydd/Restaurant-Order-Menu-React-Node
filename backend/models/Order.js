@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now, // Automatically set the current date/time
+    default: Date.now,
     required: true,
   },
   items: [
