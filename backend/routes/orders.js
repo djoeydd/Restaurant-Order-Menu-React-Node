@@ -3,6 +3,8 @@ const router = express.Router();
 const Order = require("../models/Order");
 const orderController = require("../controllers/orderController");
 
+// Order route for managing orders
+
 // Get orders with query parameters
 router.get("/", orderController.getAllOrders);
 
@@ -22,7 +24,10 @@ router.delete("/:orderId", orderController.deleteOrder);
 router.delete("/:orderId/items/:itemId", orderController.deleteOrderItem);
 
 // Close orders by table number
-router.patch("/close/:tableNumber", orderController.closeOrdersByTableNumber);
+router.patch("/close/:id", orderController.closeOrdersByID);
+
+// Open Orders by id
+router.patch("/open/:id", orderController.openOrdersByID);
 
 // Add items to an order by table number
 router.patch("/add/:tableNumber", orderController.addItemsToOrder);

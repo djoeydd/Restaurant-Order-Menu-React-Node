@@ -88,13 +88,25 @@ exports.deleteOrderItem = async (req, res) => {
 };
 
 // Close orders by table number
-exports.closeOrdersByTableNumber = async (req, res) => {
-  const { tableNumber } = req.params;
+exports.closeOrdersByID = async (req, res) => {
+  const { id } = req.params;
   try {
-    await Order.updateMany({ tableNumber, open: true }, { open: false });
+    await Order.findByIdAndUpdate(id, { open: false });
     res.send("Orders closed successfully");
   } catch (err) {
     res.status(500).send("Error closing orders");
+  }
+};
+
+// Open orders by ID
+exports.openOrdersByID = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    await Order.findByIdAndUpdate(id, { open: true });
+    res.send("Orders opened successfully");
+  } catch (err) {
+    res.status(500).send("Error opening orders");
   }
 };
 
