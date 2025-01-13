@@ -101,7 +101,6 @@ exports.closeOrdersByID = async (req, res) => {
 // Open orders by ID
 exports.openOrdersByID = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   try {
     await Order.findByIdAndUpdate(id, { open: true });
     res.send("Orders opened successfully");

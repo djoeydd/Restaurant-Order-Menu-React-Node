@@ -22,10 +22,12 @@ mongoose
 const ordersRoute = require("./routes/orders");
 const menuItemsRoute = require("./routes/menuItems");
 const adminRoute = require("./routes/admin");
+const salesRoute = require("./routes/sales");
 
 app.use("/api/orders", ordersRoute);
 app.use("/api/menuitems", menuItemsRoute);
 app.use("/api/admin", adminRoute);
+app.use("/api/sales", salesRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
