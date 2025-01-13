@@ -9,6 +9,7 @@ A full-stack restaurant order management system using React, Node.js, Express, a
 - **Menu Display:** Dynamic menu display with categories.
 - **Order Management:** View cart, place orders, and view bill.
 - **Admin Dashboard:** Manage orders, update menu items, and monitor order status in real-time.
+- **Sales Analytics:** View real time data related to sales.
 - **Responsive Design:** Mobile-friendly design.
 
 ## Technologies
