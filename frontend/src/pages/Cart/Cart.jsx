@@ -9,9 +9,12 @@ const Cart = () => {
   const {
     cartItems,
     food_list,
-    removeFromCart,
+    decreaseQuantity,
     getTotalCartAmount,
     clearCart,
+    removeItemFromCart,
+    addToCart,
+    increaseQuantity,
     addItemToBill,
     tableNumber,
     getTotalBillItems,
@@ -39,10 +42,12 @@ const Cart = () => {
           .map((item) => ({
             itemName: item.name,
             price: item.price,
+            image: item.image,
             quantity: cartItems[item.productId],
           })),
         tableNumber: tableNumber,
       };
+      console.log("Order data:", orderData);
 
       try {
         const totalBillItems = await getTotalBillItems(tableNumber);
@@ -56,6 +61,7 @@ const Cart = () => {
           );
         } else {
           // Make a PATCH request to add items to the existing order
+
           response = await axios.patch(
             `${
               import.meta.env.VITE_REACT_APP_BACKEND_URL
@@ -83,33 +89,46 @@ const Cart = () => {
   return (
     <div className="cart">
       <div className="cart-items">
-        <div className="cart-items-title">
-          <p>Items</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-          <p>Remove</p>
-        </div>
-
         <hr />
+        <br />
+        <h2>Order</h2>
         {food_list.map((item, index) => {
           if (cartItems[item.productId] > 0) {
             return (
               <div key={item.productId}>
-                <div className="cart-items-title cart-items-item">
-                  <img src={`src/assets/${item.image}`} alt="" />
-                  <p>{item.name}</p>
-                  <p>¥{item.price}</p>
-                  <p className="quantity">{cartItems[item.productId]}</p>
-                  <p>¥{item.price * cartItems[item.productId]}</p>
-                  <p
-                    onClick={() => removeFromCart(item.productId)}
-                    className="cross"
-                  >
-                    x
-                  </p>
+                <div className="single-item-container">
+                  <div className="item-image">
+                    <img src={`src/assets/${item.image}`} alt="" />
+                  </div>
+                  <div className="item-text-description">
+                    <h4>{item.name}</h4>
+                    <p>¥{item.price * cartItems[item.productId]}</p>
+                    <div className="quantity-container">
+                      <div className="item-button-group">
+                        <button
+                          className="minus-button"
+                          onClick={() => decreaseQuantity(item.productId)}
+                        >
+                          -
+                        </button>
+                        <p>{cartItems[item.productId]}</p>
+                        <button
+                          className="plus-button"
+                          onClick={() => increaseQuantity(item.productId)}
+                        >
+                          +
+                        </button>
+                      </div>
+                      <button
+                        className="remove-button"
+                        onClick={() => removeItemFromCart(item.productId)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
                 </div>
+
                 <hr />
               </div>
             );
@@ -118,10 +137,8 @@ const Cart = () => {
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>Cart Total</h2>
-          <hr />
           <div className="cart-total-details">
-            <p>Total</p>
+            <p>Total:</p>
             <p>¥{getTotalCartAmount()}</p>
           </div>
           <button onClick={handlePlaceOrder} disabled={isLoading}>

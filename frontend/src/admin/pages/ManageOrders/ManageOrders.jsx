@@ -19,7 +19,7 @@ const ManageOrders = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [orders]);
 
   return (
     <div className="manage-orders-title">

@@ -74,13 +74,22 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  const removeFromCart = (itemId) => {
+  const increaseQuantity = (itemId) => {
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+  };
+
+  const decreaseQuantity = (itemId) => {
     if (cartItems[itemId] > 1) {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     } else {
       const { [itemId]: _, ...rest } = cartItems;
       setCartItems(rest);
     }
+  };
+
+  const removeItemFromCart = (itemId) => {
+    const { [itemId]: _, ...rest } = cartItems;
+    setCartItems(rest);
   };
 
   const getTotalCartAmount = () => {
@@ -145,12 +154,14 @@ const StoreContextProvider = (props) => {
     cartItems,
     setCartItems,
     addToCart,
-    removeFromCart,
+    decreaseQuantity,
     getTotalCartAmount,
     clearCart,
     addItemToBill,
     getTotalBillItems,
     setBillItems,
+    increaseQuantity,
+    removeItemFromCart,
     billItems,
     tableNumber,
     setTableNumber: handleSetTableNumber,

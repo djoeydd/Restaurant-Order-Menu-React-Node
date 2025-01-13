@@ -30,7 +30,7 @@ const Bill = () => {
     };
 
     fetchBillItems();
-  }, [tableNumber, setBillItems]);
+  }, [tableNumber, setBillItems, billItems]);
 
   const closeOrders = async () => {
     if (isOrderEmpty) {
@@ -42,9 +42,9 @@ const Bill = () => {
       setIsLoading(true);
       try {
         await axios.patch(
-          `${
-            import.meta.env.VITE_REACT_APP_BACKEND_URL
-          }/api/orders/close/${tableNumber}`
+          `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/orders/close/${
+            billItems[0]._id
+          }`
         );
         setTimeout(() => {
           setBillItems([]); // Clear the bill items after closing orders
@@ -61,29 +61,28 @@ const Bill = () => {
 
   return (
     <div className="bill">
-      <h2>Order</h2>
+      <hr />
+      <br />
+      <h2>Bill</h2>
       <div className="bill-items">
-        <div className="bill-items-title">
-          <p>Items</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-        </div>
-        <br />
-        <hr />
         {billItems.length === 0 ? (
           <p>No items in the bill.</p>
         ) : (
           billItems.map((order) =>
             order.items.map((item, index) => (
               <div key={`${order.productId}-${index}`}>
-                <div className="bill-items-title bill-items-item">
-                  <img src={item.image} alt="" />
-                  <p>{item.itemName}</p>
-                  <p>¥{item.price}</p>
-                  <p>{item.quantity}</p>
-                  <p>¥{item.price * item.quantity}</p>
+                <div className="single-bill-item-container">
+                  <div className="bill-item-image">
+                    <img src={`src/assets/${item.image}`} alt="" />
+                  </div>
+                  <div className="bill-item-text-description">
+                    <h4>{item.itemName}</h4>
+                    <p id="bill-item-quantity">
+                      ¥{item.price} x {item.quantity}
+                    </p>
+                    <p>¥{item.price * item.quantity}</p>
+                    <div className="bill-quantity-container"></div>
+                  </div>
                 </div>
                 <hr />
               </div>
@@ -93,8 +92,6 @@ const Bill = () => {
       </div>
       <div className="bill-bottom">
         <div className="bill-total">
-          <h2>Bill Total</h2>
-          <hr />
           <div className="bill-total-details">
             <p>Total</p>
             <p>

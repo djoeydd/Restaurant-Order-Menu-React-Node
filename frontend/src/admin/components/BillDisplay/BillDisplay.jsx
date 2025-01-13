@@ -73,6 +73,48 @@ const BillDisplay = ({ orders }) => {
     }
   };
 
+  const handleCloseOrder = (order) => async () => {
+    const confirmClose = window.confirm("Closing order. Continue?");
+
+    if (!confirmClose) {
+      return false;
+    }
+    try {
+      await axios.patch(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/orders/close/${
+          order._id
+        }`
+      );
+      order.open = false;
+      setLocalOrders([...localOrders]);
+      return true;
+    } catch (error) {
+      console.error("Failed to close order:", error);
+      return false;
+    }
+  };
+
+  const handleOpenOrder = (order) => async () => {
+    const confirmOpen = window.confirm("Opening order. Continue?");
+
+    if (!confirmOpen) {
+      return false;
+    }
+    try {
+      await axios.patch(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/orders/open/${
+          order._id
+        }`
+      );
+      order.open = true;
+      setLocalOrders([...localOrders]);
+      return true;
+    } catch (error) {
+      console.error("Failed to open order:", error);
+      return false;
+    }
+  };
+
   return (
     <div className="admin-bill-display" id="admin-bill-display">
       <div className="admin-bill-display-list">
@@ -108,11 +150,17 @@ const BillDisplay = ({ orders }) => {
                 ))}
               </div>
               <h4>Total: ¥{total}</h4>
-              {order.open && (
+              {order.open ? (
                 <div className="button-group">
-                  <button id="close-button">Close Order</button>
+                  <button id="close-button" onClick={handleCloseOrder(order)}>
+                    Close Order
+                  </button>
                   <button id="add-button">Add Item</button>
                 </div>
+              ) : (
+                <button id="add-button" onClick={handleOpenOrder(order)}>
+                  Open Order
+                </button>
               )}
             </div>
           );

@@ -12,12 +12,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchTotalBillItems = async () => {
-      const total = await getTotalBillItems(tableNumber); // Assuming tableNumber is 5
+      const total = await getTotalBillItems(tableNumber);
       setTotalBillItems(total);
     };
 
     fetchTotalBillItems();
-  }, [getTotalBillItems, tableNumber]);
+  }, [totalBillItems, tableNumber, getTotalCartAmount]);
   return (
     <div className="navbar">
       <Link to="/">

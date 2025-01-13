@@ -19,7 +19,7 @@ function AllOrders() {
       }
     };
     fetchBillItems();
-  }, []);
+  }, [orders]);
 
   return (
     <div className="manage-orders-title">

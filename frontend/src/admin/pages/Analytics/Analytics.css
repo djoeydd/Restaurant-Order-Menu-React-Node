@@ -1,0 +1,111 @@
+.analytics-page {
+  flex-direction: column;
+  max-width: 90%;
+  margin: auto;
+}
+
+.analytics-page h1 {
+  font-size: 24px;
+  font-weight: 400;
+  padding: 20px 0px;
+  display: flex;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 500;
+  padding: 20px 0px;
+  display: flex;
+}
+.sales-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+.custom-select {
+  width: 150px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5H7z" fill="gray"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 12px;
+}
+.analytics-section {
+  display: flex;
+}
+.orders-data {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  margin: 10px 5px;
+}
+
+.orders-data h1 {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  padding: 20px 0px;
+  color: tomato;
+}
+
+.orders-data p {
+  font-weight: 400;
+}
+.change {
+  text-align: center;
+  font-size: 12px;
+}
+
+.orders-data {
+  color: #555;
+}
+
+.orders-data:first-child {
+  margin-left: 0px;
+}
+
+.orders-data:last-child {
+  margin-right: 0px;
+}
+
+.time-range-selector {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 500px) {
+  .orders-data {
+    width: 100%;
+    padding: 10px;
+  }
+  .orders-data h1 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    padding: 20px 0px;
+    color: tomato;
+  }
+
+  .orders-data p {
+    font-weight: 400;
+  }
+  .change {
+    text-align: center;
+    font-size: 10px;
+  }
+}

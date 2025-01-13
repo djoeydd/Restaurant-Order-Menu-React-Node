@@ -11,26 +11,32 @@ import ManageOrders from "./admin/pages/ManageOrders/ManageOrders";
 import AdminNavbar from "./admin/components/Navbar/AdminNavbar";
 import AllOrders from "./admin/pages/AllOrders/AllOrders";
 import ManageMenu from "./admin/pages/ManageMenu/ManageMenu";
+import Analytics from "./admin/pages/Analytics/Analytics";
+import SalesDataProvider from "./context/SalesDataContext";
 
 const App = () => {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith("/admin");
 
   return (
-    <div className="app">
-      {isAdminPath ? <AdminNavbar /> : <Navbar />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/bill" element={<Bill />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/orders" element={<ManageOrders />} />
-        <Route path="/admin/orders/all" element={<AllOrders />} />
-        <Route path="/admin/menu" element={<ManageMenu />} />
-      </Routes>
+    <SalesDataProvider>
+      <div className={`app ${isAdminPath ? "admin-background" : ""}`}>
+        {isAdminPath ? <AdminNavbar /> : <Navbar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/bill" element={<Bill />} />
 
-      {!isAdminPath && <Footer />}
-    </div>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/orders" element={<ManageOrders />} />
+          <Route path="/admin/orders/all" element={<AllOrders />} />
+          <Route path="/admin/menu" element={<ManageMenu />} />
+          <Route path="/admin/analytics" element={<Analytics />} />
+        </Routes>
+
+        {!isAdminPath && <Footer />}
+      </div>
+    </SalesDataProvider>
   );
 };
 

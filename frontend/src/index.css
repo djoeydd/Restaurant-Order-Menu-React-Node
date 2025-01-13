@@ -18,6 +18,10 @@ a {
   width: 100%;
   margin: auto;
 }
+.admin-background {
+  background-color: #ececec;
+  min-height: 100vh;
+}
 
 @keyframes fadeIn {
   0% {
